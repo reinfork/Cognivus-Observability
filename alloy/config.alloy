@@ -2,9 +2,18 @@ discovery.docker "containers" {
 	host = "unix:///var/run/docker.sock"
 }
 
+discovery.relabel "backend" {
+	targets = discovery.docker.containers.targets
+	rule {
+		source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+		regex = "server"
+		action = "keep"
+	}
+}
+
 loki.source.docker "containers" {
 	host = "unix:///var/run/docker.sock"
-	targets = discovery.docker.containers.targets
+	targets = discovery.relabel.backend.output
 	forward_to = [loki.process.pino.receiver]
 }
 
