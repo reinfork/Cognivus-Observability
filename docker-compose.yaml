@@ -18,5 +18,15 @@ services:
       timeout: 10s
       retries: 3
 
+  alloy:
+    image: 'grafana/alloy:latest'
+    container_name: 'alloy'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./alloy/config.yaml:/etc/alloy/config.yaml:ro
+    command:
+      - run
+      - /etc/alloy/config.alloy
+
 volumes:
   loki-data:
