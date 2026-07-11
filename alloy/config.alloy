@@ -8,8 +8,20 @@ loki.source.docker "containers" {
 	forward_to = [loki.process.pino.receiver]
 }
 
+loki.process "pino" {
+	stage.json {
+		expression = {
+			level = "level",
+			reqId = "reqId",
+			msg = "msg",
+			service = "service",
+		}
+	}
+	forward_to = [loki.write.default.receiver]
+}
+
 loki.write "default" {
 	endpoint {
-		url = "http://localhost:3100/loki/api/v1/push"
+		url = "http://loki:3100/loki/api/v1/push"
 	}
 }
