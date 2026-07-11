@@ -19,7 +19,7 @@ loki.source.docker "containers" {
 
 loki.process "pino" {
 	stage.json {
-		expression = {
+		expressions = {
 			level = "level",
 			reqId = "reqId",
 			msg = "msg",

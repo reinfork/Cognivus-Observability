@@ -23,7 +23,7 @@ services:
     container_name: 'alloy'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./alloy/config.yaml:/etc/alloy/config.alloy:ro
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
     command:
       - run
       - /etc/alloy/config.alloy
