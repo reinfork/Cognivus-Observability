@@ -15,15 +15,24 @@ loki.source.docker "containers" {
 	host = "unix:///var/run/docker.sock"
 	targets = discovery.relabel.backend.output
 	forward_to = [loki.process.pino.receiver]
-	path       = "/var/lib/alloy/positions.yaml
 }
 
 loki.process "pino" {
+	stage.drop {
+    	older_than          = "24h",
+    	drop_counter_reason = "too_old",
+  	}
 	stage.json {
 		expressions = {
 			level = "level",
 			reqId = "reqId",
 			msg = "msg",
+			service = "service",
+		}
+    }
+	stage.labels {
+		values = {
+			level   = "level",
 			service = "service",
 		}
 	}
