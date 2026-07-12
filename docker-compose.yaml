@@ -19,7 +19,7 @@ services:
       retries: 3
 
   alloy:
-    image: 'grafana/alloy:1.17.1'
+    image: 'grafana/alloy:latest'
     container_name: 'alloy'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
