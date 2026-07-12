@@ -15,6 +15,7 @@ loki.source.docker "containers" {
 	host = "unix:///var/run/docker.sock"
 	targets = discovery.relabel.backend.output
 	forward_to = [loki.process.pino.receiver]
+	path       = "/var/lib/alloy/positions.yaml
 }
 
 loki.process "pino" {
